@@ -1,6 +1,6 @@
 const Sidebar = () => {
     return (
-        <section className='bg-primary' style={{height: '50vh'}}>
+        <section className='sidebar sticky-top'>
             sidebar
         </section>
     );

@@ -9,8 +9,8 @@ const Products = () => {
     return (
         <div className='row'>
             {products.map((product: ProductModel) => (
-                <div className='col-xl-3 col-lg-4 col-md-6'>
-                    <Product key={product.id} product={product} />
+                <div key={product.id} className='col-xl-3 col-lg-4 col-md-6'>
+                    <Product  product={product} />
                 </div>
             ))}
         </div>
