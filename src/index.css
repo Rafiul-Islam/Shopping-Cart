@@ -1,4 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600&display=swap');
+
+body {
+    font-family: 'Open Sans', sans-serif;
+}
+
 .dropdown-menu-lg-start[data-bs-popper] {
     right: 0 !important;
     left: auto !important;
+}
+
+.product-card {
+    background: #fff;
+    box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
+    margin-bottom: 20px;
+}
+
+.product-card .card-body {
+    color: #515151;
+}
+
+.product-card .card-title {
+    color: #323233;
+    font-size: 17px;
+    margin-bottom: 5px;
+    font-weight: 600;
+    text-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
+}
+
+.product-card .add-to-cart-btn {
+    background: rebeccapurple;
+    color: #fff;
+    font-weight: 500;
+    box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
+    padding: 8px 16px;
+    border: none;
+}
+
+.product-card .add-to-cart-btn:hover {
+    background: #451e6b;
+}
+
+.product-card .add-to-cart-btn:active {
+    background: #451e6b;
+    transform: scale(.96);
 }

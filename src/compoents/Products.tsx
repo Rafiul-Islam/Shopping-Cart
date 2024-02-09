@@ -7,8 +7,12 @@ const Products = () => {
     const {state: {products}} = cartState();
     console.log(products);
     return (
-        <div>
-            {products.map((product: ProductModel) => <Product product={product} />)}
+        <div className='row'>
+            {products.map((product: ProductModel) => (
+                <div className='col-xl-3 col-lg-4 col-md-6'>
+                    <Product key={product.id} product={product} />
+                </div>
+            ))}
         </div>
     );
 };

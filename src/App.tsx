@@ -5,7 +5,7 @@ const App = () => {
     return (
         <>
             <Navbar/>
-            <main>
+            <main className='p-3'>
                 <Routers/>
             </main>
         </>
