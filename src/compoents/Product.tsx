@@ -3,8 +3,8 @@ import {FaRegStar} from "react-icons/fa";
 
 const Product = ({product: {name, image, price, fastDelivery}}: { product: ProductModel }) => {
 
-    const generateRandomDay = () => {
-        const days = parseInt(Math.random() * 5);
+    const generateRandomDay = (): number => {
+        const days = parseInt(String(Math.random() * 5));
         return days > 1 ? days : generateRandomDay();
     }
 
