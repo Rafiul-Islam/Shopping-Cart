@@ -3,7 +3,8 @@ import {cartState} from "../context/cartContext.tsx";
 import ProductModel from "../models/Product.ts";
 
 const Products = () => {
-    // @ts-ignore
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
     const {state: {products}} = cartState();
     console.log(products);
     return (
