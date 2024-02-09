@@ -1,8 +1,13 @@
+import Navbar from "./compoents/Navbar.tsx";
+
 const App = () => {
     return (
-        <main>
+        <>
+            <Navbar/>
+            <main>
 
-        </main>
+            </main>
+        </>
     );
 };
 
