@@ -1,24 +1,32 @@
-import React, {createContext, ReactNode, useState} from "react";
-import Product from "../models/Product.ts";
+import React, {createContext, ReactNode, useContext, useReducer} from "react";
 import generateProducts from "../utils/products.ts";
+import cartReducer from "./cartReducer.ts";
 
-interface ContextType {
-    cart: Object[],
-    setCart: React.Dispatch<React.SetStateAction<Object[]>>,
-    products: Product[],
+interface ValueType {
+    state: any;
+    dispatch: React.DispatchWithoutAction;
 }
 
-export const Cart = createContext<ContextType | null>(null);
+interface UseReducerType {
+    state: (state: number | undefined, action: any) => number,
+    dispatch: React.DispatchWithoutAction
+}
+
+const CartContext = createContext<ValueType | null>(null);
+// @ts-ignore
+export const cartState = () => useContext(CartContext);
 
 const CartContextProvider = ({children}: { children: ReactNode }) => {
-    const [cart, setCart] = useState<Object[]>([]);
-    // @ts-ignore
-    const [products, setProducts] = useState<Product[]>(generateProducts);
+    const products = generateProducts();
+    const [state, dispatch] = useReducer<UseReducerType | any>(cartReducer, {
+        products: products,
+        cart: []
+    });
 
     return (
-        <Cart.Provider value={{products, cart, setCart}}>
+        <CartContext.Provider value={{state, dispatch}}>
             {children}
-        </Cart.Provider>
+        </CartContext.Provider>
     )
 }
 

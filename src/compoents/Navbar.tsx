@@ -4,7 +4,7 @@ import {NavLink} from "react-router-dom";
 const Navbar = () => {
     return (
         <nav className="navbar navbar-expand-lg sticky-top navbar-dark bg-success py-3">
-            <div className="container">
+            <div className="container-fluid">
                 <NavLink className='text-decoration-none' to="/">
                     <h4 className="text-white mb-0" >Sopping Cart</h4>
                 </NavLink>
