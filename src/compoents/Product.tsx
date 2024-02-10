@@ -1,7 +1,7 @@
 import ProductModel from "../models/Product.ts";
 import RatingFilter from "./RatingFilter.tsx";
 
-const Product = ({product: {name, image, price, fastDelivery, rating}}: { product: ProductModel }) => {
+const Product = ({product: {name, image, price, fastDelivery, rating, inStock}}: { product: ProductModel }) => {
 
     const generateRandomDay = (): number => {
         const days = parseInt(String(Math.random() * 5));
@@ -36,7 +36,10 @@ const Product = ({product: {name, image, price, fastDelivery, rating}}: { produc
                         style={{cursor: "default", pointerEvents: "none"}}
                     />
                 </div>
-                <button type='button' className="btn btn-primary add-to-cart-btn">Add To Cart</button>
+                <button disabled={inStock === 0} type='button' className="btn btn-primary add-to-cart-btn">
+                    {inStock === 0 ? 'Out Of Stock': 'Add To Cart'}
+                </button>
+                <button type='button' className="btn btn-primary remove-from-cart-btn">Remove From Cart</button>
             </div>
         </div>
     );

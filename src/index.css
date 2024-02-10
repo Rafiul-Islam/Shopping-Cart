@@ -54,3 +54,22 @@ body {
     background: #451e6b;
     transform: scale(.96);
 }
+
+.product-card .remove-from-cart-btn {
+    background: crimson;
+    color: #fff;
+    font-weight: 500;
+    box-shadow: rgba(0, 0, 0, 0.35) 2px 5px 5px;
+    padding: 8px 20px;
+    border: none;
+    border-radius: 3px;
+}
+
+.product-card .remove-from-cart-btn:hover {
+    background: #b90e30;
+}
+
+.product-card .remove-from-cart-btn:active {
+    background: #b90e30;
+    transform: scale(.96);
+}
