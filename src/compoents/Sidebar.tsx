@@ -1,10 +1,13 @@
 import React, {useState} from "react";
+import RatingFilter from "./RatingFilter.tsx";
 
 
 const Sidebar = () => {
     const [sortingType, setSortingType] = useState<string>("");
     const [stockOut, setStockOut] = useState<boolean>(false);
     const [fast, setFast] = useState<boolean>(false);
+    // @ts-ignore
+    const [rate, setRate] = useState<number>(0);
 
     const handleSorting = (e: React.FormEvent) => {
         // @ts-expect-error
@@ -22,6 +25,12 @@ const Sidebar = () => {
         setSortingType("");
         setStockOut(false);
         setFast(false);
+        setRate(0);
+    }
+
+    const handleRating = (index: number) => {
+        const updatedRate = index + 1;
+        setRate(updatedRate)
     }
 
     return (
@@ -75,8 +84,11 @@ const Sidebar = () => {
                         <small>Fast Delivery</small>
                     </label>
                 </div>
-                <button onClick={handleReset} type='reset' className='btn w-100 bg-light text-dark mt-3'>Reset All
-                    Filters
+                <div className='filter my-2'>
+                    <RatingFilter rating={rate} handleClick={handleRating}/>
+                </div>
+                <button onClick={handleReset} type='reset' className='btn w-100 bg-light text-dark mt-3'>
+                    Reset All Filters
                 </button>
             </form>
         </section>
