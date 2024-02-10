@@ -1,7 +1,7 @@
 import ProductModel from "../models/Product.ts";
-import {FaRegStar} from "react-icons/fa";
+import RatingFilter from "./RatingFilter.tsx";
 
-const Product = ({product: {name, image, price, fastDelivery}}: { product: ProductModel }) => {
+const Product = ({product: {name, image, price, fastDelivery, rating}}: { product: ProductModel }) => {
 
     const generateRandomDay = (): number => {
         const days = parseInt(String(Math.random() * 5));
@@ -30,11 +30,11 @@ const Product = ({product: {name, image, price, fastDelivery}}: { product: Produ
                 </strong>
                 <br/>
                 <div className='mb-2'>
-                    <FaRegStar className='ms-1'/>
-                    <FaRegStar className='ms-1'/>
-                    <FaRegStar className='ms-1'/>
-                    <FaRegStar className='ms-1'/>
-                    <FaRegStar className='ms-1'/>
+                    <RatingFilter
+                        rating={rating}
+                        handleClick={() => {}}
+                        style={{cursor: "default", pointerEvents: "none"}}
+                    />
                 </div>
                 <button type='button' className="btn btn-primary add-to-cart-btn">Add To Cart</button>
             </div>
