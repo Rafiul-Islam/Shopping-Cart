@@ -36,7 +36,8 @@ const Sidebar = () => {
     return (
         <section className='sidebar sticky-top'>
             <form>
-                <div className='sort-view'>
+                <h5 className='mb-3 fst-italic'>Filter Products</h5>
+                <div className='sort-view text-light'>
                     <label className='d-block' htmlFor="asc">
                         <input
                             className='me-2'
@@ -60,7 +61,7 @@ const Sidebar = () => {
                         <small>Descending</small>
                     </label>
                 </div>
-                <div className='filter my-2'>
+                <div className='filter text-light my-2'>
                     <label className='d-block' htmlFor="stockOut">
                         <input
                             className='me-2'
@@ -72,7 +73,7 @@ const Sidebar = () => {
                         <small>Include Out Of Stock</small>
                     </label>
                 </div>
-                <div className='filter my-2'>
+                <div className='filter text-light my-2'>
                     <label htmlFor="fast">
                         <input
                             className='me-2'
@@ -84,7 +85,8 @@ const Sidebar = () => {
                         <small>Fast Delivery</small>
                     </label>
                 </div>
-                <div className='filter my-2'>
+                <div className='filter text-light my-3'>
+                    Rating &nbsp;
                     <RatingFilter rating={rate} handleClick={handleRating}/>
                 </div>
                 <button onClick={handleReset} type='reset' className='btn w-100 bg-light text-dark mt-3'>
