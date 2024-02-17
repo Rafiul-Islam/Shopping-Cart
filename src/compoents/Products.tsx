@@ -6,7 +6,7 @@ const Products = () => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-expect-error
     const {state: {products}} = cartState();
-    console.log(products);
+
     return (
         <div className='row'>
             {products.map((product: ProductModel) => (

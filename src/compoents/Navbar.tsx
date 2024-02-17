@@ -1,12 +1,20 @@
-import { FaCartPlus } from "react-icons/fa6";
+import {FaCartPlus} from "react-icons/fa6";
 import {NavLink} from "react-router-dom";
+import {cartState} from "../context/cartContext.tsx";
+import {FaTrash} from "react-icons/fa6";
+import {REMOVE_FROM_CART} from "../context/type.ts";
+import Product from "../models/Product.ts";
 
 const Navbar = () => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+    const {state: {cart}, dispatch} = cartState();
+    console.log("cart:", cart);
     return (
         <nav className="navbar navbar-expand-lg sticky-top navbar-dark bg-success py-3">
             <div className="container-fluid">
                 <NavLink className='text-decoration-none' to="/">
-                    <h4 className="text-white mb-0" >Sopping Cart</h4>
+                    <h4 className="text-white mb-0">Sopping Cart</h4>
                 </NavLink>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -22,21 +30,49 @@ const Navbar = () => {
                     <form className="d-flex">
                         <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
                         <div className='btn-group bg-light ms-4'>
-                            <button type="button" className="btn btn-light px-4 py-2 rounded dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
-                                <FaCartPlus size='21' />
-                                <strong className='ms-2 me-3'>0</strong>
+                            <button type="button" className="btn btn-light px-4 py-2 rounded dropdown-toggle"
+                                    data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+                                <FaCartPlus size='21'/>
+                                <strong className='ms-2 me-3'>{cart.length}</strong>
                             </button>
-                            <ul className="dropdown-menu dropdown-menu-end dropdown-menu-lg-start py-0"
+                            <ul className="dropdown-menu dropdown-menu-end dropdown-menu-lg-start py-0 shadow-lg rounded-0"
                                 aria-labelledby="navbarDropdown">
-                                <li className='dropdown-item p-3 text-danger'>
-                                    No Item Found!
-                                </li>
-                                {/*<li className='dropdown-item p-3'>*/}
-                                {/*    <div className='d-flex justify-content-between'>*/}
-                                {/*        <p className='mb-0 me-5'>Product Name</p>*/}
-                                {/*        <strong>2</strong>*/}
-                                {/*    </div>*/}
-                                {/*</li>*/}
+                                {
+                                    cart.length === 0 &&
+                                    <li className='dropdown-item p-3 text-danger'>
+                                        No Item Found!
+                                    </li>
+                                }
+                                {
+                                    cart.length > 0 && cart.map((item: Product) =>
+                                        <li key={item.id} className='dropdown-item border-bottom p-3'>
+                                            <div className='d-flex justify-content-between'>
+                                                <div className='me-5'>
+                                                    <small>
+                                                        <strong className='text-nowrap'>{item.name}</strong>
+                                                        <br/>
+                                                        <strong>$</strong>{item.price}
+                                                    </small>
+                                                </div>
+                                                <div>
+                                                    <FaTrash onClick={() => dispatch({
+                                                        type: REMOVE_FROM_CART,
+                                                        payload: item
+                                                    })}
+                                                             role='button'
+                                                             className='text-danger'
+                                                    />
+                                                </div>
+                                            </div>
+                                        </li>
+                                    )
+                                }
+                                {
+                                    cart.length > 0 &&
+                                    <NavLink to='/cart'>
+                                        <button className='btn btn-success rounded-0 w-100'>Go To Cart</button>
+                                    </NavLink>
+                                }
                             </ul>
                         </div>
                     </form>

@@ -10,7 +10,8 @@ const Product = ({product}: { product: ProductModel }) => {
         return days > 1 ? days : generateRandomDay();
     }
 
-    // @ts-ignore
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
     const {state: {cart}, dispatch} = cartState();
 
     return (
