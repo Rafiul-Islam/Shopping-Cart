@@ -1,12 +1,17 @@
 import ProductModel from "../models/Product.ts";
 import RatingFilter from "./RatingFilter.tsx";
+import {cartState} from "../context/cartContext.tsx";
+import {ADD_TO_CART, REMOVE_FROM_CART} from "../context/type.ts";
 
-const Product = ({product: {name, image, price, fastDelivery, rating, inStock}}: { product: ProductModel }) => {
-
+const Product = ({product}: { product: ProductModel }) => {
+    const {id, name, image, price, fastDelivery, rating, inStock} = product;
     const generateRandomDay = (): number => {
         const days = parseInt(String(Math.random() * 5));
         return days > 1 ? days : generateRandomDay();
     }
+
+    // @ts-ignore
+    const {state: {cart}, dispatch} = cartState();
 
     return (
         <div className="card product-card">
@@ -32,14 +37,28 @@ const Product = ({product: {name, image, price, fastDelivery, rating, inStock}}:
                 <div className='mb-2'>
                     <RatingFilter
                         rating={rating}
-                        handleClick={() => {}}
+                        handleClick={() => {
+                        }}
                         style={{cursor: "default", pointerEvents: "none"}}
                     />
                 </div>
-                <button disabled={inStock === 0} type='button' className="btn btn-primary add-to-cart-btn">
-                    {inStock === 0 ? 'Out Of Stock': 'Add To Cart'}
-                </button>
-                <button type='button' className="btn btn-primary remove-from-cart-btn">Remove From Cart</button>
+                {
+                    cart.some((item: { id: string }) => item.id === id) ? (
+                        <button onClick={() => dispatch({
+                            type: REMOVE_FROM_CART,
+                            payload: product
+                        })} type='button' className="btn btn-primary remove-from-cart-btn">
+                            Remove From Cart
+                        </button>
+                    ) : (
+                        <button onClick={() => dispatch({
+                            type: ADD_TO_CART,
+                            payload: product
+                        })} disabled={inStock === 0} type='button' className="btn btn-primary add-to-cart-btn">
+                            {inStock === 0 ? 'Out Of Stock' : 'Add To Cart'}
+                        </button>
+                    )
+                }
             </div>
         </div>
     );
