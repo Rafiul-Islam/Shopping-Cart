@@ -47,12 +47,20 @@ const Navbar = () => {
                                     cart.length > 0 && cart.map((item: Product) =>
                                         <li key={item.id} className='dropdown-item border-bottom p-3'>
                                             <div className='d-flex justify-content-between'>
-                                                <div className='me-5'>
-                                                    <small>
-                                                        <strong className='text-nowrap'>{item.name}</strong>
-                                                        <br/>
-                                                        <strong>$</strong>{item.price}
-                                                    </small>
+                                                <div className='me-5 d-flex align-items-center'>
+                                                    <img
+                                                        width='40'
+                                                        height='40'
+                                                        style={{objectFit: "cover", borderRadius: '100%'}}
+                                                        src={item.image}
+                                                        alt={item.name}
+                                                    />
+                                                    <div className='ms-2'>
+                                                        <small>
+                                                            <p className='mb-0 text-nowrap fw-bolder'>{item.name}</p>
+                                                            <strong>$</strong>{item.price}
+                                                        </small>
+                                                    </div>
                                                 </div>
                                                 <div>
                                                     <FaTrash onClick={() => dispatch({
