@@ -8,7 +8,7 @@ const CheckoutPage = () => {
     return (
         <section className='text-light p-4 rounded-3' style={{background: "#104c81", boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px"}}>
             <h4>SubTotal ({cart.length}) Items</h4>
-            <p className='fw-bolder'>Total Price: ${cart.reduce((a:number, c:Product) => a + parseInt(c.price), 0)}</p>
+            <p className='fw-bolder'>Total Price: ${cart.reduce((a:number, c:Product) => a + (Number(c.price) * Number(c.qty)), 0)}</p>
             <button type='button' className='btn btn-light w-100'>Proceed To Checkout</button>
         </section>
     );

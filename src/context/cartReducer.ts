@@ -1,4 +1,4 @@
-import {ADD_TO_CART, REMOVE_FROM_CART} from "./type.ts";
+import {ADD_TO_CART, REMOVE_FROM_CART, CHANGE_ITEM_QUANTITY} from "./type.ts";
 
 
 const cardReducer = (state: any, action: any) => {
@@ -18,6 +18,16 @@ const cardReducer = (state: any, action: any) => {
             return {
                 ...state,
                 cart: state.cart.filter((item: { id: string }) => item.id !== action.payload.id)
+            }
+        case CHANGE_ITEM_QUANTITY:
+            return {
+                ...state,
+                cart: [...state.cart.map((item: { id: string, qty: number }) => {
+                    if (item.id === action.payload.product.id) {
+                        item.qty = parseInt(action.payload.qty);
+                    }
+                    return item;
+                })]
             }
         default:
             return state;

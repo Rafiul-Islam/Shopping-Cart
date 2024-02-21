@@ -1,8 +1,8 @@
 import Product from "../models/Product.ts";
 import RatingFilter from "./RatingFilter.tsx";
 import {FaTrash} from "react-icons/fa6";
-import {REMOVE_FROM_CART} from "../context/type.ts";
-import React from "react";
+import {CHANGE_ITEM_QUANTITY, REMOVE_FROM_CART} from "../context/type.ts";
+import React, {FormEvent, useState} from "react";
 
 interface PropsType {
     product: Product,
@@ -11,6 +11,7 @@ interface PropsType {
 
 const CartItem = ({product, dispatch}: PropsType) => {
     const {name, image, price, rating, qty, inStock} = product;
+    const [quantity, setQuantity] = useState(qty);
     const handleDeleteFromCart = (product: Product) => {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-expect-error
@@ -19,6 +20,19 @@ const CartItem = ({product, dispatch}: PropsType) => {
             payload: product
         })
     }
+
+    const handleProductQuantity = (e:FormEvent) => {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-expect-error
+        dispatch({
+            type: CHANGE_ITEM_QUANTITY,
+            payload: {
+                product,
+                qty: e.target.value
+            }
+        })
+    }
+
     return (
         <div className='cart-item mb-3 p-4 border rounded d-flex justify-content-between flex-wrap align-items-start' style={{boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px"}}>
             <div className='d-flex align-items-center'>
@@ -31,10 +45,10 @@ const CartItem = ({product, dispatch}: PropsType) => {
             </div>
             <div className='d-flex align-items-center ms-5'>
                 <label className='me-2 fw-bolder'>Quantity:</label>
-                <select className='form-control me-4' style={{minWidth: "100px"}}>
+                <select defaultValue={quantity} onChange={(e) => handleProductQuantity(e)} className='form-control me-4' style={{minWidth: "100px"}}>
                     {
                         [...Array(inStock)].map((_, i) =>
-                            <option selected={(i + 1) === qty} key={i} value={i + 1}>
+                            <option key={i} value={i + 1}>
                                 {i + 1}
                             </option>
                         )
