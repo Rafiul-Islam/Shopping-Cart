@@ -2,7 +2,7 @@ import Product from "../models/Product.ts";
 import RatingFilter from "./RatingFilter.tsx";
 import {FaTrash} from "react-icons/fa6";
 import {CHANGE_ITEM_QUANTITY, REMOVE_FROM_CART} from "../context/type.ts";
-import React, {FormEvent, useState} from "react";
+import React, {FormEvent} from "react";
 
 interface PropsType {
     product: Product,
@@ -11,7 +11,6 @@ interface PropsType {
 
 const CartItem = ({product, dispatch}: PropsType) => {
     const {name, image, price, rating, qty, inStock} = product;
-    const [quantity, setQuantity] = useState(qty);
     const handleDeleteFromCart = (product: Product) => {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-expect-error
@@ -45,7 +44,7 @@ const CartItem = ({product, dispatch}: PropsType) => {
             </div>
             <div className='d-flex align-items-center ms-5'>
                 <label className='me-2 fw-bolder'>Quantity:</label>
-                <select defaultValue={quantity} onChange={(e) => handleProductQuantity(e)} className='form-control me-4' style={{minWidth: "100px"}}>
+                <select defaultValue={qty} onChange={(e) => handleProductQuantity(e)} className='form-control me-4' style={{minWidth: "100px"}}>
                     {
                         [...Array(inStock)].map((_, i) =>
                             <option key={i} value={i + 1}>
