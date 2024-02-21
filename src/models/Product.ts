@@ -6,6 +6,7 @@ interface Product {
     inStock: number;
     fastDelivery: boolean;
     rating: number;
+    qty?: number;
 }
 
 export default Product;

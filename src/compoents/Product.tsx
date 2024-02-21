@@ -56,7 +56,7 @@ const Product = ({product}: { product: ProductModel }) => {
                             type: ADD_TO_CART,
                             payload: product
                         })} disabled={inStock === 0} type='button' className="btn btn-primary add-to-cart-btn">
-                            {inStock === 0 ? 'Out Of Stock' : 'Add To Cart'}
+                            {inStock === 0 ? 'Out Of Stock' : 'Add To CartPage'}
                         </button>
                     )
                 }
