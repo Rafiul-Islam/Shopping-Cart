@@ -1,3 +1,11 @@
 export const ADD_TO_CART: string = "ADD_TO_CART";
 export const REMOVE_FROM_CART: string = "REMOVE_FROM_CART";
 export const CHANGE_ITEM_QUANTITY: string = "CHANGE_ITEM_QUANTITY";
+export const FILTER_BY_PRICE: string = "FILTER_BY_PRICE";
+export const FILTER_BY_STOCK: string = "FILTER_BY_STOCK";
+export const FILTER_BY_FAST_DELIVERY: string = "FILTER_BY_FAST_DELIVERY";
+export const FILTER_BY_RATING: string = "FILTER_BY_RATING";
+export const FILTER_BY_SEARCH: string = "FILTER_BY_SEARCH";
+export const RESET_FILTERS: string = "RESET_FILTERS";
+export const SORT_BY_ASC_ORDER: string = "asc";
+export const SORT_BY_DESC_ORDER: string = "desc";

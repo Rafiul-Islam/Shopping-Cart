@@ -2,14 +2,22 @@ import {FaCartPlus} from "react-icons/fa6";
 import {NavLink} from "react-router-dom";
 import {cartState} from "../context/cartContext.tsx";
 import {FaTrash} from "react-icons/fa6";
-import {REMOVE_FROM_CART} from "../context/type.ts";
+import {FILTER_BY_SEARCH, REMOVE_FROM_CART} from "../context/type.ts";
 import Product from "../models/Product.ts";
+import {FormEvent} from "react";
 
 const Navbar = () => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-expect-error
-    const {state: {cart}, dispatch} = cartState();
-    console.log("cart:", cart);
+    const {state: {cart}, dispatch,filterState: {searchQuery} , filterDispatch} = cartState();
+
+    const handleSearch = (e: FormEvent) => {
+        filterDispatch({
+            type: FILTER_BY_SEARCH,
+            payload: e.target.value
+        })
+    }
+
     return (
         <nav className="navbar navbar-expand-lg sticky-top navbar-dark bg-success py-3">
             <div className="container-fluid">
@@ -28,7 +36,14 @@ const Navbar = () => {
                         </li>
                     </ul>
                     <form className="d-flex">
-                        <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
+                        <input
+                            className="form-control me-2"
+                            type="search"
+                            placeholder="Search"
+                            aria-label="Search"
+                            onChange={handleSearch}
+                            value={searchQuery}
+                        />
                         <div className='btn-group bg-light ms-4'>
                             <button type="button" className="btn btn-light px-4 py-2 rounded dropdown-toggle"
                                     data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">

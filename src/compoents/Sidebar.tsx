@@ -1,36 +1,50 @@
-import React, {useState} from "react";
+import React, {FormEvent, useState} from "react";
 import RatingFilter from "./RatingFilter.tsx";
-
+import {cartState} from "../context/cartContext.tsx";
+import {
+    FILTER_BY_FAST_DELIVERY,
+    FILTER_BY_PRICE,
+    FILTER_BY_RATING,
+    FILTER_BY_STOCK,
+    RESET_FILTERS, SORT_BY_ASC_ORDER, SORT_BY_DESC_ORDER
+} from "../context/type.ts";
 
 const Sidebar = () => {
-    const [sortingType, setSortingType] = useState<string>("");
-    const [stockOut, setStockOut] = useState<boolean>(false);
-    const [fast, setFast] = useState<boolean>(false);
-    // @ts-ignore
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+    const {filterState: {sort, byStock, byFastDelivery, byRating}, filterDispatch} = cartState();
+
     const [rate, setRate] = useState<number>(0);
 
     const handleSorting = (e: React.FormEvent) => {
-        // @ts-expect-error
-        setSortingType(e.target.value);
+        filterDispatch({
+            type: FILTER_BY_PRICE,
+            payload: e.target.value
+        });
     }
 
     const handleStockOut = () => {
-        setStockOut(prevState => !prevState);
+        filterDispatch({
+            type: FILTER_BY_STOCK,
+        });
     }
     const handleFastDelivery = () => {
-        setFast(prevState => !prevState);
+        filterDispatch({
+            type: FILTER_BY_FAST_DELIVERY,
+        });
     }
 
     const handleReset = () => {
-        setSortingType("");
-        setStockOut(false);
-        setFast(false);
-        setRate(0);
+        filterDispatch({
+            type: RESET_FILTERS
+        });
     }
 
     const handleRating = (index: number) => {
-        const updatedRate = index + 1;
-        setRate(updatedRate)
+        filterDispatch({
+            type: FILTER_BY_RATING,
+            payload: index + 1
+        });
     }
 
     return (
@@ -44,8 +58,8 @@ const Sidebar = () => {
                             type="radio"
                             onChange={(e) => handleSorting(e)}
                             id='asc'
-                            value='asc'
-                            checked={sortingType === 'asc'}
+                            value={SORT_BY_ASC_ORDER}
+                            checked={sort === SORT_BY_ASC_ORDER}
                         />
                         <small>Ascending</small>
                     </label>
@@ -55,8 +69,8 @@ const Sidebar = () => {
                             type="radio"
                             onChange={(e) => handleSorting(e)}
                             id='desc'
-                            value='desc'
-                            checked={sortingType === 'desc'}
+                            value={SORT_BY_DESC_ORDER}
+                            checked={sort === SORT_BY_DESC_ORDER}
                         />
                         <small>Descending</small>
                     </label>
@@ -68,7 +82,7 @@ const Sidebar = () => {
                             type="checkbox"
                             onChange={handleStockOut}
                             id='stockOut'
-                            checked={stockOut}
+                            checked={byStock}
                         />
                         <small>Include Out Of Stock</small>
                     </label>
@@ -80,14 +94,14 @@ const Sidebar = () => {
                             type="checkbox"
                             onChange={handleFastDelivery}
                             id='fast'
-                            checked={fast}
+                            checked={byFastDelivery}
                         />
                         <small>Fast Delivery</small>
                     </label>
                 </div>
                 <div className='filter text-light my-3'>
                     Rating &nbsp;
-                    <RatingFilter rating={rate} handleClick={handleRating}/>
+                    <RatingFilter rating={byRating} handleClick={handleRating}/>
                 </div>
                 <button onClick={handleReset} type='reset' className='btn w-100 bg-light text-dark mt-3'>
                     Reset All Filters
