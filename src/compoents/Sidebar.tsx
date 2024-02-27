@@ -14,8 +14,6 @@ const Sidebar = () => {
     // @ts-expect-error
     const {filterState: {sort, byStock, byFastDelivery, byRating}, filterDispatch} = cartState();
 
-    const [rate, setRate] = useState<number>(0);
-
     const handleSorting = (e: React.FormEvent) => {
         filterDispatch({
             type: FILTER_BY_PRICE,
@@ -84,7 +82,7 @@ const Sidebar = () => {
                             id='stockOut'
                             checked={byStock}
                         />
-                        <small>Include Out Of Stock</small>
+                        <small>Exclude Out Of Stock</small>
                     </label>
                 </div>
                 <div className='filter text-light my-2'>
